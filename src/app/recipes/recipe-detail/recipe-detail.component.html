@@ -17,14 +17,16 @@
 <div class="row">
   <div class="col-xs-12">
     
-    <div class="btn-group" [ngClass]="{'open' : isOpen}" (click)="isOpen = !isOpen">
-      <button type="button" class="btn btn-primary dropdown-toggle">
+    <div class="btn-group" appDropDown>
+    
+      <button type="button" 
+      class="btn btn-primary dropdown-toggle">
                 Manage Recipe <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
         <li><a (click)="OnAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
-        <li><a href="#">Edit Recipe</a></li>
-        <li><a href="#">Delete Recipe</a></li>
+        <li><a style="cursor: pointer;" routerLink="edit">Edit Recipe</a></li>
+        <li><a style="cursor: pointer;" >Delete Recipe</a></li>
       </ul>
     </div>
   </div>

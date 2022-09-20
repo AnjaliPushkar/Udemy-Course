@@ -1,6 +1,6 @@
-import { Template } from '@angular/compiler/src/render3/r3_ast';
-import { Component, EventEmitter, Output } from '@angular/core';
-//import { EventEmitter } from 'stream';
+//import { Template } from '@angular/compiler/src/render3/r3_ast';
+import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-header',
@@ -9,9 +9,5 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 
 export class HeaderComponent {
-  @Output() featureSelected = new EventEmitter<string>();
-
-  onSelect(feature:string){
-    this.featureSelected.emit(feature);
-  }
+  
 }
