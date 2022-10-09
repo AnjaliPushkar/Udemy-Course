@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShopppingListService } from '../shopping-list/shoppping-list.service';
 import { Recipe} from "./recipe.model";
 
 @Injectable()
 export class RecipeService{
+
+  //recipeChanges is for adding changes in recipe bcz all the changes in added in recipe will be a copy, so we
+  //will copy changes in recipeChanged
+    recipeChanged = new Subject<Recipe[]>();
 
     private recipes: Recipe[] = [
         new Recipe('first name', 'discription purpose',
@@ -28,10 +33,28 @@ export class RecipeService{
     getRecipes(){
         return this.recipes.slice();
     }
+
     getRecipe(index :number){
       return this.recipes[index];
     }
-  addIngredientsToShoppingList(ingredients:Ingredient[]){
-    this.slService.addIngredients(ingredients);
+
+    addIngredientsToShoppingList(ingredients:Ingredient[]){
+      this.slService.addIngredients(ingredients);
     }
+
+    addRecipe(recipe: Recipe){
+      this.recipes.push(recipe);
+      this.recipeChanged.next(this.recipes.slice()); //copying changes of recipes in recipeChanges bcz recipe will become a copy and chnges will not reflect
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe){
+      this.recipes[index] = newRecipe;
+      this.recipeChanged.next(this.recipes.slice());
+    }
+
+    deleteRecipe(index: number){
+      this.recipes.splice(index,1);
+      this.recipeChanged.next(this.recipes.slice());
+    }
+
 }
