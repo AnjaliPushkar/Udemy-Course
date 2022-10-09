@@ -17,9 +17,13 @@
       </div>
       <div class=" row">
         <div class="col-sm-12">
-          <button class="btn btn-success" type="submit" [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>
-          <button class="btn btn-danger" type="submit">Delete</button>
-          <button class="btn btn-primary" type="submit" (click)="OnClear()">Clear</button>
+          <button class="btn btn-success" type="submit" 
+          [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>
+          <button class="btn btn-danger" type="submit" 
+          (click)="OnDelete()"
+          *ngIf="editMode">Delete</button>
+          <button class="btn btn-primary" type="reset"
+          (click)="OnClear()">Clear</button>
         </div>
       </div>
     </form>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Ingredient } from 'src/app/shared/ingredient.model';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -9,8 +12,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class RecipeEditComponent implements OnInit {
   id : number;
   editMode = false;
+  recipeForm : FormGroup;
 
-  constructor(private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute, private recipeService: RecipeService) { }
 
   ngOnInit(): void {
     this.route.params.
@@ -18,9 +22,51 @@ export class RecipeEditComponent implements OnInit {
       (params: Params)=>{
         this.id = +params['id'];
         this.editMode = params['id'] != null;
-        console.log(this.editMode);
+        this.initForm();
       }
     );
+  }
+
+  onSubmit(){
+    console.log(this.recipeForm);
+  }
+
+  private initForm(){
+    let recipeName = '';
+    let recipeImagePath = '';
+    let recipeDescription = '';
+    let recipeIngredients = new FormArray([]);
+
+    if(this.editMode){
+      const recipe = this.recipeService.getRecipe(this.id);
+      recipeName = recipe.name;
+      recipeImagePath = recipe.imagePath;
+      recipeDescription = recipe.description;   
+      if(recipe['ingredient']){
+        for(let ingredient of recipe.ingredients){
+          recipeIngredients.push(
+            new FormGroup({
+              'name' : new FormControl(ingredient.name),
+              'amount' : new FormControl(ingredient.amount)
+            })
+          )
+        }
+      }
+    }
+    this.recipeForm = new FormGroup({
+      'name' : new FormControl(recipeName),
+      'imagePath' : new FormControl(recipeImagePath),
+      'description' : new  FormControl(recipeDescription),
+      'ingredients' : new FormControl(recipeIngredients)
+    });
+  }
+
+  onAddIngredient(){
+
+  }
+  getControls() { // a getter!
+    // return (<FormArray>this.recipeForm.get('ingredients')).controls;
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
   }
 
 }
