@@ -28,16 +28,19 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
-  onSubmit(){
-    if(this.editMode){
+  onSubmit() {
+    // const newRecipe = new Recipe(
+    //   this.recipeForm.value['name'],
+    //   this.recipeForm.value['description'],
+    //   this.recipeForm.value['imagePath'],
+    //   this.recipeForm.value['ingredients']);
+    if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
-    }
-    else{
+    } else {
       this.recipeService.addRecipe(this.recipeForm.value);
     }
     this.OnCancel();
   }
-
   private initForm(){
     let recipeName = '';
     let recipeImagePath = '';

@@ -1,5 +1,6 @@
 //import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Component } from '@angular/core';
+import { Recipe } from '../recipes/recipe.model';
 import { DataStorageService } from '../shared/data-storage.service';
 
 
@@ -15,9 +16,10 @@ export class HeaderComponent {
 
   onSaveData(){
     this.dataStorageService.storeRecipes();
+    //console.log(Recipe);
   }
 
   onFetchData(){
-    this.dataStorageService.fetchRecipes();
+    this.dataStorageService.fetchRecipes().subscribe();
   }
 }
