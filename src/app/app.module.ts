@@ -12,24 +12,26 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list-module';
 import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    AuthComponent,
+    // AuthComponent,
   ],
 
   //for ngif, for, form, http etc
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
+    // FormsModule,
+    // ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule, 
     RecipesModule,
     ShoppingListModule,
-    SharedModule
+    SharedModule,
+    AuthModule
   ],
   providers: [ShopppingListService, RecipeService,
   {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptorService, multi: true}],
