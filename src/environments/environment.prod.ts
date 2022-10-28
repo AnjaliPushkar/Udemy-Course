@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  firbaseAPIKey : 'AIzaSyAGzRxPFBT0hBKGMCf4jhyfdRm5MwDoxmA'
 };

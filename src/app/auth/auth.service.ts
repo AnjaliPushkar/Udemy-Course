@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { UserModel } from './user.model';
+import { environment } from 'src/environments/environment';
+
 
 //response payload which is optional
 export interface AuthResponseData{
@@ -27,7 +29,7 @@ export class AuthService {
   //just need to replace [API_KEY] with your web api key which will presnt in project setting on firebase 
   signup(email: string, password:string){
     return this.http.post<AuthResponseData>
-    ('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAGzRxPFBT0hBKGMCf4jhyfdRm5MwDoxmA',
+    ('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firbaseAPIKey,
     {
       email: email,
       password: password,
@@ -43,7 +45,7 @@ export class AuthService {
 
   login(email: string, password:string){
     return this.http.post<AuthResponseData>
-    ('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAGzRxPFBT0hBKGMCf4jhyfdRm5MwDoxmA',
+    ('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firbaseAPIKey,
     {
       email: email,
       password: password,
